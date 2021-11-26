@@ -41,17 +41,56 @@ module.exports = configure(function (ctx) {
       },
     },
     devServer: {
+      // https: {
+      //   cacert: path.join(__dirname, "cert.pem") ,
+      //   key: path.join(__dirname, "key.pem"),
+      // },
       https: false,
       port: 8080,
       open: true,
     },
     framework: {
       config: {},
-      plugins: ["Meta",'Loading','Notify','Dialog'],
+      plugins: ["Meta", 'Loading', 'Notify', 'Dialog'],
     },
     animations: [],
     pwa: {
+      workboxPluginMode: 'InjectManifest',
       manifest: {
+        name: 'Quasar Play',
+        short_name: 'Quasar-Play',
+        description: 'Quasar Framework Showcase',
+        icons: [
+          {
+            'src': 'icons/icon-128x128.png',
+            'sizes': '128x128',
+            'type': 'image/png'
+          },
+          {
+            'src': 'icons/icon-192x192.png',
+            'sizes': '192x192',
+            'type': 'image/png'
+          },
+          {
+            'src': 'icons/icon-256x256.png',
+            'sizes': '256x256',
+            'type': 'image/png'
+          },
+          {
+            'src': 'icons/icon-384x384.png',
+            'sizes': '384x384',
+            'type': 'image/png'
+          },
+          {
+            'src': 'icons/icon-512x512.png',
+            'sizes': '512x512',
+            'type': 'image/png'
+          }
+        ],
+        display: 'standalone',
+        orientation: 'portrait',
+        background_color: '#ffffff',
+        theme_color: '#027be3'
       },
       metaVariables: {
         appleMobileWebAppCapable: 'yes',
@@ -64,7 +103,7 @@ module.exports = configure(function (ctx) {
         msapplicationTileImage: 'icons/ms-icon-144x144.png',
         msapplicationTileColor: '#000000'
       },
-      metaVariablesFn (manifest) {
+      metaVariablesFn(manifest) {
         return [
           {
             tagName: 'meta',
@@ -85,9 +124,9 @@ module.exports = configure(function (ctx) {
           }
         ]
       },
-      extendWebpackCustomSW (cfg) {
+      extendWebpackCustomSW(cfg) {
       },
-      chainWebpackCustomSW (chain) {
+      chainWebpackCustomSW(chain) {
       }
     },
     capacitor: {

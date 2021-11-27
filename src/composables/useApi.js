@@ -20,6 +20,9 @@ export function useApi() {
       .catch((e) => {
         console.error(e);
       });
+    setTimeout(() => {
+      getUserNotice();
+    }, 2500);
   };
 
   const getUserToken = (data) => {

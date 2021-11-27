@@ -7,7 +7,7 @@
         style="max-height: 70vh"
         class="col-3 q-pa-md scroll"
       >
-        <q-virtual-scroll :items="userNotice" separator>
+        <q-virtual-scroll :items="filteredNotice" separator>
           <template v-slot="{ item }">
             <q-card
               @click="openToDetail(item.id)"
@@ -58,9 +58,6 @@
                   </div>
                 </div>
               </q-card-section>
-              <!-- <q-card-actions>
-                <q-btn :to="`/notice/${item.notice.id}`">Подробнее</q-btn>
-              </q-card-actions> -->
             </q-card>
           </template>
         </q-virtual-scroll>
@@ -78,12 +75,8 @@ import { useApi } from "@composables/useApi";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import _ from "lodash";
-// import NoticeDetail from "./NoticeDetail.vue";
 
 export default defineComponent({
-  // components: {
-  //   NoticeDetail,
-  // },
   setup() {
     const { getUserNotice } = useApi();
     const route = useRoute();
@@ -93,6 +86,10 @@ export default defineComponent({
     const userNotice = computed({
       get: () => store.state.notice.noticeList,
     });
+
+    const filteredNotice = computed(() =>
+      userNotice.value.filter((item) => item.notice.event.priority)
+    );
 
     const openToDetail = (noticeId) => {
       _.isInteger(noticeId) &&
@@ -108,6 +105,7 @@ export default defineComponent({
     return {
       userNotice,
       openToDetail,
+      filteredNotice,
     };
   },
 });

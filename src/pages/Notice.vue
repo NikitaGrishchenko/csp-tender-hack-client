@@ -1,6 +1,44 @@
 <template>
   <q-page class="index-page q-pa-md">
     <p class="main-title">Уведомления пользователя</p>
+    <div v-if="groupsEvents" class="row">
+      <div class="col-2 q-pa-md" v-for="group in groupsEvents" :key="group.id">
+        <q-card flat bordered style="border-radius: 8px" class="text-center">
+          <div class="row justify-center">
+            <div
+              @click="filtredByGroupId(group.id)"
+              class="groupNotice-card__header q-pa-md"
+            >
+              {{ group.name }}
+            </div>
+          </div>
+
+          <div class="row q-pa-sm">
+            <div v-if="group.h !== 0" class="col-4">
+              <q-btn round class="groupNotice-card__value bg-red-9 text-white">
+                {{ group.h }}</q-btn
+              >
+            </div>
+            <div v-if="group.m !== 0" class="col-4">
+              <q-btn
+                round
+                class="groupNotice-card__value bg-yellow-9 text-white"
+              >
+                {{ group.m }}</q-btn
+              >
+            </div>
+            <div v-if="group.l !== 0" class="col-4">
+              <q-btn
+                round
+                class="groupNotice-card__value bg-green-9 text-white"
+              >
+                {{ group.l }}</q-btn
+              >
+            </div>
+          </div>
+        </q-card>
+      </div>
+    </div>
     <div class="row justify-center">
       <div
         id="virtual-scroll-target"
@@ -62,7 +100,7 @@
           </template>
         </q-virtual-scroll>
       </div>
-      <div class="col-6 bg-red">
+      <div style="max-height: 70vh" class="col-6 bg-red">
         <router-view></router-view>
       </div>
     </div>
@@ -78,7 +116,7 @@ import _ from "lodash";
 
 export default defineComponent({
   setup() {
-    const { getUserNotice } = useApi();
+    const { getUserNotice, getGroupsEvents } = useApi();
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -87,10 +125,16 @@ export default defineComponent({
       get: () => store.state.notice.noticeList,
     });
 
+    const groupsEvents = computed({
+      get: () => store.state.notice.groupsEvents,
+    });
+    // console.log();
+    // Фильтрация по группе уведомлений
     const filteredNotice = computed(() =>
       userNotice.value.filter((item) => item.notice.event.priority)
     );
 
+    // открытие детального просмотра компонента NoticeDetail
     const openToDetail = (noticeId) => {
       _.isInteger(noticeId) &&
         router.push({
@@ -100,10 +144,12 @@ export default defineComponent({
 
     onMounted(() => {
       getUserNotice();
+      getGroupsEvents();
     });
-    console.log(userNotice);
+
     return {
       userNotice,
+      groupsEvents,
       openToDetail,
       filteredNotice,
     };
@@ -114,29 +160,4 @@ export default defineComponent({
 <style lang="sass" scoped>
 .index-page
   max-height: 100vh
-.notice
-  &-card
-    &__bg
-      &-true
-        background: #c6eef2
-      &-false
-        background: var(--q-accent)
-    &__date
-      font-size: .8rem
-    &__title
-      font-size: .8rem
-  &-viewed
-    padding: 5px
-    width: 100%
-    border-radius: 8px
-    font-size: .8rem
-    text-align: center
-    &__text
-
-    &__false
-      background: #ccc
-    &__true
-      color: #167c85
-      background: #167c851a
-      border: 1px solid #167c851a
 </style>

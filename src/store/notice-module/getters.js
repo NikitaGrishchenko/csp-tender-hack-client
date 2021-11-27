@@ -4,3 +4,6 @@ export function getNoticeList(state) {
 export function getNoticeCount(state) {
   return state.noticeCount;
 }
+export function getGroupsEvents(state) {
+  return state.groupsEvents;
+}

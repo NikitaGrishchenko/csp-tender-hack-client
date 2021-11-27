@@ -24,6 +24,22 @@ export function useApi() {
     }, 2500);
   };
 
+  const getGroupsEvents = () => {
+    api
+      .get(`notice/groups-events/`)
+      .then((res) => {
+        store.commit(
+          "notice/setGroupsEvents",
+          res.data.filter(
+            (item) => !(item.h !== 0 && item.l !== 0 && item.m !== 0)
+          )
+        );
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   const getUserNoticeById = (id) => {
     api
       .get(`notice/detail/${id}`)
@@ -50,5 +66,11 @@ export function useApi() {
       });
   };
 
-  return { userNotice, getUserNotice, getUserToken, getUserNoticeById };
+  return {
+    userNotice,
+    getUserNotice,
+    getUserToken,
+    getUserNoticeById,
+    getGroupsEvents,
+  };
 }

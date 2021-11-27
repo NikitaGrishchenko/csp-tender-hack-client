@@ -4,9 +4,10 @@
       <q-header elevated class="primary">
         <q-toolbar class="bg-black text-white">
           <q-btn flat round dense to="/" icon="home" />
-          <q-toolbar-title class="main-title c-accent">
+          <q-toolbar-title class="header-title c-accent">
             Computerhandwerker, Spulke und partnerzen
           </q-toolbar-title>
+          <q-btn stretch flat label="Login" to="/login" />
           <q-btn flat round dense to="/notice" icon="assignment_ind">
             <q-badge floating color="red">{{
               $store.state.notice.noticeCount
@@ -63,9 +64,9 @@ export default defineComponent({
   color: $accent
 .secondary
   background: $secondary
+.header-title
+  font-size: 1rem
 .main
-  &-title
-    font-size: 1rem
   &-layout__link
     margin: 0px 20px
 .main-layout__link

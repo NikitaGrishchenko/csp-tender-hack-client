@@ -1,6 +1,6 @@
 import { boot } from "quasar/wrappers";
 import axios from "axios";
-
+import { LocalStorage } from "quasar";
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
 // If any client changes this (global) instance, it might be a
@@ -9,11 +9,13 @@ import axios from "axios";
 // for each client)
 const api = axios.create({
   baseURL: process.env.DEV ? "http://localhost:8000/api/v1" : "",
+  // headers: {
+  //   Authorization: "Bearer" + LocalStorage.getItem("access_token"),
+  // }
 });
 
-// headers: {
-//   Authorization: "Bearer" + localStorage.getItem("access_token"),
-// }
+api.defaults.headers.common['Authorization'] = "Bearer " + LocalStorage.getItem("access_token")
+
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api

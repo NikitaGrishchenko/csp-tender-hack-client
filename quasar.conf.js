@@ -1,6 +1,7 @@
 const ESLintPlugin = require("eslint-webpack-plugin");
 const { configure } = require("quasar/wrappers");
 const path = require("path");
+const { LocalStorage } = require("quasar");
 
 module.exports = configure(function (ctx) {
   return {
@@ -51,7 +52,7 @@ module.exports = configure(function (ctx) {
     },
     framework: {
       config: {},
-      plugins: ["Meta", 'Loading', 'Notify', 'Dialog'],
+      plugins: ["Meta","LocalStorage", 'Loading', 'Notify', 'Dialog'],
     },
     animations: [],
     pwa: {

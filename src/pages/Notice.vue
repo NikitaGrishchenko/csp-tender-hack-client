@@ -10,6 +10,7 @@
         <q-virtual-scroll :items="userNotice" separator>
           <template v-slot="{ item }">
             <q-card
+              @click="openToDetail(item.id)"
               class="q-mb-md"
               :class="
                 !item.is_viewed
@@ -57,14 +58,16 @@
                   </div>
                 </div>
               </q-card-section>
-              <q-card-actions>
+              <!-- <q-card-actions>
                 <q-btn :to="`/notice/${item.notice.id}`">Подробнее</q-btn>
-              </q-card-actions>
+              </q-card-actions> -->
             </q-card>
           </template>
         </q-virtual-scroll>
       </div>
-      <div class="col-6 bg-red"></div>
+      <div class="col-6 bg-red">
+        <router-view></router-view>
+      </div>
     </div>
   </q-page>
 </template>
@@ -72,24 +75,39 @@
 <script>
 import { defineComponent, onMounted, computed } from "vue";
 import { useApi } from "@composables/useApi";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import _ from "lodash";
+// import NoticeDetail from "./NoticeDetail.vue";
 
 export default defineComponent({
+  // components: {
+  //   NoticeDetail,
+  // },
   setup() {
     const { getUserNotice } = useApi();
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
+
     const userNotice = computed({
       get: () => store.state.notice.noticeList,
     });
-    console.log(route.params.noticeId);
+
+    const openToDetail = (noticeId) => {
+      _.isInteger(noticeId) &&
+        router.push({
+          path: "/notice/" + noticeId,
+        });
+    };
+
     onMounted(() => {
       getUserNotice();
     });
     console.log(userNotice);
     return {
       userNotice,
+      openToDetail,
     };
   },
 });

@@ -1,7 +1,10 @@
 import { ref } from "vue";
 import { api } from "$axios";
+import { route } from "quasar/wrappers";
+import { useRouter } from "vue-router";
 
 export function useApi() {
+  const router = useRouter();
   let userNotice = ref([]);
 
   const getUserNotice = () => {
@@ -21,7 +24,9 @@ export function useApi() {
       .then((res) => {
         localStorage.setItem("access_token", res.data.access);
         localStorage.setItem("refresh_token", res.data.refresh);
-        console.log(res.data);
+        router.push({
+          path: "/",
+        });
       })
       .catch((e) => {
         console.error(e);

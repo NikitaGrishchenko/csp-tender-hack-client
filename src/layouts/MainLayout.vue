@@ -7,22 +7,22 @@
             Computerhandwerker, Spulke und partnerzen
           </q-toolbar-title>
           <q-btn
-          flat
-          type="a"
-          :href='"https://github.com/NikitaGrishchenko/CSP-client"'
-          :target='"_blank"'
-          color="accent"
-          label="Client"
-          icon="mdi-github"
+            flat
+            type="a"
+            :href="'https://github.com/NikitaGrishchenko/CSP-client'"
+            :target="'_blank'"
+            color="accent"
+            label="Client"
+            icon="mdi-github"
           />
           <q-btn
-          flat
-          type="a"
-          :href='"https://github.com/NikitaGrishchenko/CSP-server"'
-          :target='"_blank"'
-          color="accent"
-          label="Server"
-          icon="mdi-github"
+            flat
+            type="a"
+            :href="'https://github.com/NikitaGrishchenko/CSP-server'"
+            :target="'_blank'"
+            color="accent"
+            label="Server"
+            icon="mdi-github"
           />
         </q-toolbar>
 
@@ -53,17 +53,17 @@ export default defineComponent({
   name: "MainLayout",
 
   setup() {
-    const activeTab = ref(0)
+    const activeTab = ref(0);
     const linksList = [
       {
         id: 0,
-        title: "Главная",
+        title: "Уведомления",
         link: "/",
       },
       {
         id: 1,
-        title: "Регистрация",
-        link: "/registration",
+        title: "Авторизация",
+        link: "/login",
       },
     ];
 

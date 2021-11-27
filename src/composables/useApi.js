@@ -13,9 +13,8 @@ export function useApi() {
     api
       .get(`notice/list/`)
       .then((res) => {
-        userNotice.value = res.data;
-        store.commit("notice/setNoticeList", userNotice.value);
-        store.commit("notice/setNoticeCount", userNotice.value.length);
+        store.commit("notice/setNoticeList", res.data);
+        store.commit("notice/setNoticeCount", res.data.length);
       })
       .catch((e) => {
         console.error(e);
@@ -23,6 +22,17 @@ export function useApi() {
     setTimeout(() => {
       getUserNotice();
     }, 2500);
+  };
+
+  const getUserNoticeById = (id) => {
+    api
+      .get(`notice/detail/${id}`)
+      .then((res) => {
+        userNotice.value = res.data;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   const getUserToken = (data) => {
@@ -40,5 +50,5 @@ export function useApi() {
       });
   };
 
-  return { userNotice, getUserNotice, getUserToken };
+  return { userNotice, getUserNotice, getUserToken, getUserNoticeById };
 }

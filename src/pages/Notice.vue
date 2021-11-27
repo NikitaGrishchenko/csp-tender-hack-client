@@ -2,18 +2,21 @@
   <q-page class="index-page q-pa-md">
     <p class="main-title">Уведомления пользователя</p>
     <div v-if="groupsEvents" class="row">
-      <div class="col-2 q-pa-md" v-for="group in groupsEvents" :key="group.id">
+      <q-btn @click="getUserNotice">Все уведомления</q-btn>
+      <div
+        @click="getOneGroupNoticeList(group.id)"
+        class="col-2 q-pa-md"
+        v-for="group in groupsEvents"
+        :key="group.id"
+      >
         <q-card flat bordered style="border-radius: 8px" class="text-center">
           <div class="row justify-center">
-            <div
-              @click="filtredByGroupId(group.id)"
-              class="groupNotice-card__header q-pa-md"
-            >
-              {{ group.name }}
+            <div class="groupNotice-card__header q-pa-md">
+              {{ group.name }} ({{ group.count }})
             </div>
           </div>
 
-          <div class="row q-pa-sm">
+          <!-- <div class="row q-pa-sm">
             <div v-if="group.h !== 0" class="col-4">
               <q-btn round class="groupNotice-card__value bg-red-9 text-white">
                 {{ group.h }}</q-btn
@@ -35,7 +38,7 @@
                 {{ group.l }}</q-btn
               >
             </div>
-          </div>
+          </div> -->
         </q-card>
       </div>
     </div>
@@ -116,7 +119,8 @@ import _ from "lodash";
 
 export default defineComponent({
   setup() {
-    const { getUserNotice, getGroupsEvents } = useApi();
+    const { getUserNotice, getGroupsNoticeList, getOneGroupNoticeList } =
+      useApi();
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -144,14 +148,16 @@ export default defineComponent({
 
     onMounted(() => {
       getUserNotice();
-      getGroupsEvents();
+      getGroupsNoticeList();
     });
 
     return {
       userNotice,
       groupsEvents,
+      getUserNotice,
       openToDetail,
       filteredNotice,
+      getOneGroupNoticeList,
     };
   },
 });

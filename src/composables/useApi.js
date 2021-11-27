@@ -19,38 +19,36 @@ export function useApi() {
       .catch((e) => {
         console.error(e);
       });
-    setTimeout(() => {
-      getUserNotice();
-    }, 2500);
+    // setTimeout(() => {
+    //   getUserNotice();
+    // }, 2500);
   };
 
-  const getGroupsEvents = () => {
+  // получение всех групп уведомлений пользователя
+  const getGroupsNoticeList = () => {
     api
-      .get(`notice/groups-events/`)
+      .get(`notice/all-group/`)
       .then((res) => {
-        store.commit(
-          "notice/setGroupsEvents",
-          res.data.filter(
-            (item) => !(item.h !== 0 && item.l !== 0 && item.m !== 0)
-          )
-        );
+        store.commit("notice/setGroupsEvents", res.data);
       })
       .catch((e) => {
         console.error(e);
       });
   };
 
-  const getUserNoticeById = (id) => {
+  // получение уведомлений пользователя по одной группе
+  const getOneGroupNoticeList = (idGroup) => {
     api
-      .get(`notice/detail/${id}`)
+      .get(`notice/for-group/${idGroup}`)
       .then((res) => {
-        userNotice.value = res.data;
+        store.commit("notice/setNoticeList", res.data);
       })
       .catch((e) => {
         console.error(e);
       });
   };
 
+  // получение токена и рефреш токена
   const getUserToken = (data) => {
     api
       .post(`auth/token/`, data)
@@ -70,7 +68,7 @@ export function useApi() {
     userNotice,
     getUserNotice,
     getUserToken,
-    getUserNoticeById,
-    getGroupsEvents,
+    getGroupsNoticeList,
+    getOneGroupNoticeList,
   };
 }

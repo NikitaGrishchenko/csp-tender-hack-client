@@ -2,9 +2,11 @@ import { ref } from "vue";
 import { api } from "$axios";
 import { route } from "quasar/wrappers";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export function useApi() {
   const router = useRouter();
+  const store = useStore();
   let userNotice = ref([]);
 
   const getUserNotice = () => {
@@ -12,6 +14,8 @@ export function useApi() {
       .get(`notice/list/`)
       .then((res) => {
         userNotice.value = res.data;
+        store.commit("notice/setNoticeList", userNotice.value);
+        store.commit("notice/setNoticeCount", userNotice.value.length);
       })
       .catch((e) => {
         console.error(e);

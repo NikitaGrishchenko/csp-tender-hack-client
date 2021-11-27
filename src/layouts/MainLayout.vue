@@ -2,40 +2,17 @@
   <div class="main-container q-pa-md">
     <q-layout view="lHh Lpr lFf">
       <q-header elevated class="primary">
-        <q-toolbar class="flex justify-center">
+        <q-toolbar class="bg-black text-white">
+          <q-btn flat round dense to="/" icon="home" />
           <q-toolbar-title class="main-title c-accent">
             Computerhandwerker, Spulke und partnerzen
           </q-toolbar-title>
-          <q-btn
-            flat
-            type="a"
-            :href="'https://github.com/NikitaGrishchenko/CSP-client'"
-            :target="'_blank'"
-            color="accent"
-            label="Client"
-            icon="mdi-github"
-          />
-          <q-btn
-            flat
-            type="a"
-            :href="'https://github.com/NikitaGrishchenko/CSP-server'"
-            :target="'_blank'"
-            color="accent"
-            label="Server"
-            icon="mdi-github"
-          />
+          <q-btn flat round dense to="/notice" icon="assignment_ind">
+            <q-badge floating color="red">{{
+              $store.state.notice.noticeCount
+            }}</q-badge>
+          </q-btn>
         </q-toolbar>
-
-        <q-tabs v-model="activeTab">
-          <router-link
-            v-for="link in linksList"
-            :key="link.id"
-            :to="link.link"
-            class="main-layout__link c-accent"
-          >
-            <q-tab :name="link.id" :label="link.title" />
-          </router-link>
-        </q-tabs>
       </q-header>
 
       <q-page-container>

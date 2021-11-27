@@ -1,27 +1,9 @@
 <template>
-  <q-page class="index-page q-pa-md">
-    Уведомления пользователя
-    <span v-if="userNotice">{{ userNotice }}</span>
-  </q-page>
+  <q-page class="notice-page q-pa-md"> </q-page>
 </template>
 
 <script>
-import { defineComponent, onMounted } from "vue";
-import { useApi } from "@composables/useApi";
-
-export default defineComponent({
-  setup() {
-    const { userNotice, getUserNotice } = useApi();
-
-    onMounted(() => {
-      getUserNotice();
-    });
-
-    return {
-      userNotice,
-    };
-  },
-});
+export default {};
 </script>
 
-<style lang="sass" scoped></style>
+<style></style>

@@ -42,13 +42,24 @@ export function useApi() {
       .get(`notice/for-group/${idGroup}`)
       .then((res) => {
         store.commit("notice/setNoticeList", res.data);
+        // console.log(res.data);
       })
       .catch((e) => {
         console.error(e);
       });
   };
 
-  // получение токена и рефреш токена
+  const getUserNoticeById = (id) => {
+    api
+      .get(`notice/detail/${id}`)
+      .then((res) => {
+        userNotice.value = res.data;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   const getUserToken = (data) => {
     api
       .post(`auth/token/`, data)
@@ -68,6 +79,7 @@ export function useApi() {
     userNotice,
     getUserNotice,
     getUserToken,
+    getUserNoticeById,
     getGroupsNoticeList,
     getOneGroupNoticeList,
   };

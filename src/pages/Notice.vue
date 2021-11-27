@@ -132,7 +132,6 @@ export default defineComponent({
     const groupsEvents = computed({
       get: () => store.state.notice.groupsEvents,
     });
-    // console.log();
     // Фильтрация по группе уведомлений
     const filteredNotice = computed(() =>
       userNotice.value.filter((item) => item.notice.event.priority)

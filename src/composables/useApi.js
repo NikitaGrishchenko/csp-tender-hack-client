@@ -23,6 +23,10 @@ export function useApi() {
     //   getUserNotice();
     // }, 2500);
   };
+  const subscribeOnPush = (data) => {
+    api
+      .put(`notice/subscribe/push/`, data)
+  };
 
   // получение всех групп уведомлений пользователя
   const getGroupsNoticeList = () => {
@@ -66,6 +70,7 @@ export function useApi() {
       .then((res) => {
         localStorage.setItem("access_token", res.data.access);
         localStorage.setItem("refresh_token", res.data.refresh);
+        api.defaults.headers.common['Authorization'] = "Bearer " + res.data.access
         router.push({
           path: "/",
         });
@@ -82,5 +87,6 @@ export function useApi() {
     getUserNoticeById,
     getGroupsNoticeList,
     getOneGroupNoticeList,
+    subscribeOnPush
   };
 }

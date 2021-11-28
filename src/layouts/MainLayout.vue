@@ -7,6 +7,7 @@
           <q-toolbar-title class="header-title c-accent">
             Computerhandwerker, Spulke und partnerzen
           </q-toolbar-title>
+          <SubscribeOnPush />
           <q-btn stretch flat label="Login" to="/login" />
           <q-btn flat round dense to="/notice" icon="assignment_ind">
             <q-badge floating color="red">{{
@@ -26,9 +27,13 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { useMeta } from "quasar";
+import SubscribeOnPush from "@components/SubscribeOnPush";
 
 export default defineComponent({
   name: "MainLayout",
+  components: {
+    SubscribeOnPush,
+  },
 
   setup() {
     const activeTab = ref(0);

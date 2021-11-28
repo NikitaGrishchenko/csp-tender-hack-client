@@ -7,7 +7,7 @@ module.exports = configure(function (ctx) {
   return {
     supportTS: false,
 
-    boot: ["axios", "capacitor"],
+    boot: ["axios", "router"],
 
     css: ["app.sass"],
 
@@ -18,6 +18,12 @@ module.exports = configure(function (ctx) {
     ],
     build: {
       vueRouterMode: "history",
+
+      env: {
+        PUBLIC_VAPID_KEY:
+          "BFYJC6O9SZrxBrL_3J_On-TLUPfOfaDVEu2Xniu82ugI3Au3_nkcPNogciRQjqJBHPSazHnozu_-9pocav5Nl_E"
+        ,
+      },
 
       chainWebpack(chain) {
         chain
@@ -52,7 +58,7 @@ module.exports = configure(function (ctx) {
     },
     framework: {
       config: {},
-      plugins: ["Meta","LocalStorage", 'Loading', 'Notify', 'Dialog'],
+      plugins: ["Meta", "LocalStorage", 'Loading', 'Notify', 'Dialog'],
     },
     animations: [],
     pwa: {

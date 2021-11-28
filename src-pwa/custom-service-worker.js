@@ -9,13 +9,16 @@ import { precacheAndRoute } from 'workbox-precaching'
 // Use with precache injection
 precacheAndRoute(self.__WB_MANIFEST)
 
-self.addEventListener('push', function(event) {
-  // var message = JSON.parse(event.data.text()); //
-  console.log(event);
-  console.log("test");
+self.addEventListener('push', function (event) {
+  const notification = event.data;
+
+  console.log(notification);
   event.waitUntil(
-    self.registration.showNotification("message", {
-      body: "message",
+    self.registration.showNotification("CSP", {
+      body: notification.text(),
+      // icon: '/static/img/icon-512.png',
+      // badge: '/static/img/icon-96.png',
+      // tag: 'alert'
     })
   );
 });

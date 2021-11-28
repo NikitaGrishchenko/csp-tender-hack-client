@@ -22,14 +22,15 @@ export default {
                 ),
               })
               .then((subscription) => {
-                console.log(subscription);
+                console.log(subscription.toJSON());
                 const data = {
                   webpush: {
                     endpoint: subscription.toJSON().endpoint,
                     key_auth: subscription.toJSON().keys.auth,
-                    key_secret: subscription.toJSON().keys.key_p256dh,
+                    key_secret: subscription.toJSON().keys.p256dh,
                   },
                 };
+                console.log(data);
                 subscribeOnPush(data);
               });
           });

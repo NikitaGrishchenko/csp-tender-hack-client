@@ -1,5 +1,6 @@
 <template>
   <q-page class="index-page q-pa-md">
+    <!-- {{ userNotice }} -->
     <p class="main-title">Уведомления пользователя</p>
     <div v-if="groupsEvents" class="row">
       <q-btn @click="getUserNotice">Все уведомления</q-btn>
@@ -53,11 +54,7 @@
             <q-card
               @click="openToDetail(item.id)"
               class="q-mb-md"
-              :class="
-                !item.is_viewed
-                  ? 'notice-card__bg-true'
-                  : 'notice-card__bg-false'
-              "
+              :class="getStyleCardNotice(item)"
               :key="item.id"
             >
               <q-card-section v-if="item.is_viewed">
@@ -92,6 +89,7 @@
                   <div class="col-10">
                     <p class="notice-card__title">
                       {{ item.notice.event.title }}
+                      <!-- {{ item.notice.event.priority }} -->
                     </p>
                   </div>
                   <div class="col-2">
@@ -103,7 +101,7 @@
           </template>
         </q-virtual-scroll>
       </div>
-      <div style="max-height: 70vh" class="col-6 bg-red">
+      <div style="max-height: 70vh" class="col-6">
         <router-view></router-view>
       </div>
     </div>
@@ -133,9 +131,18 @@ export default defineComponent({
       get: () => store.state.notice.groupsEvents,
     });
     // Фильтрация по группе уведомлений
+
     const filteredNotice = computed(() =>
-      userNotice.value.filter((item) => item.notice.event.priority)
+      _.orderBy(userNotice.value, "notice.event.priority", "desc")
     );
+
+    const getStyleCardNotice = (item) => {
+      if (item.notice.event.priority === 1) {
+        return "notice-card--low";
+      } else if (item.notice.event.priority === 2) {
+        return "notice-card--middle";
+      } else return "notice-card--high";
+    };
 
     // открытие детального просмотра компонента NoticeDetail
     const openToDetail = (noticeId) => {
@@ -157,6 +164,7 @@ export default defineComponent({
       openToDetail,
       filteredNotice,
       getOneGroupNoticeList,
+      getStyleCardNotice,
     };
   },
 });
@@ -165,4 +173,11 @@ export default defineComponent({
 <style lang="sass" scoped>
 .index-page
   max-height: 100vh
+.notice-card
+  &--low
+    border-right: 5px solid green
+  &--middle
+    border-right: 5px solid yellow
+  &--high
+    border-right: 5px solid red
 </style>

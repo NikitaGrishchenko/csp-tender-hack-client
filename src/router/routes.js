@@ -18,6 +18,10 @@ const routes = [
           },
         ],
       },
+      {
+        path: "/notice/settings",
+        component: () => import("src/components/NoticeSettings.vue"),
+      },
     ],
   },
   // {
@@ -32,6 +36,7 @@ const routes = [
     component: () => import("layouts/Empty.vue"),
     children: [{ path: "", component: () => import("pages/login.vue") }],
   },
+
   {
     path: "/:catchAll(.*)*",
     component: () => import("pages/Error404.vue"),

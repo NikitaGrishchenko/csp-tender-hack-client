@@ -8,6 +8,7 @@
             Computerhandwerker, Spulke und partnerzen
           </q-toolbar-title>
           <SubscribeOnPush />
+          <q-btn stretch flat label="Settings" to="/notice/settings" />
           <q-btn stretch flat label="Login" to="/login" />
           <q-btn flat round dense to="/notice" icon="assignment_ind">
             <q-badge floating color="red">{{

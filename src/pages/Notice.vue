@@ -2,15 +2,24 @@
   <q-page class="index-page q-pa-md">
     <!-- {{ userNotice }} -->
     <p class="main-title">Уведомления пользователя</p>
-    <div v-if="groupsEvents" class="row">
-      <q-btn @click="getUserNotice">Все уведомления</q-btn>
+    <q-card v-if="groupsEvents" class="row bg-red-10">
+      <div class="col-2 q-pa-md flex items-center justify-center">
+        <q-btn class="notice-all bg-white" @click="getUserNotice"
+          >Все уведомления</q-btn
+        >
+      </div>
       <div
         @click="getOneGroupNoticeList(group.id)"
         class="col-2 q-pa-md"
         v-for="group in groupsEvents"
         :key="group.id"
       >
-        <q-card flat bordered style="border-radius: 8px" class="text-center">
+        <q-card
+          flat
+          bordered
+          style="border-radius: 8px; min-height: 104px"
+          class="text-center cursor-pointer flex items-center justify-center"
+        >
           <div class="row justify-center">
             <div class="groupNotice-card__header q-pa-md">
               {{ group.name }} ({{ group.count }})
@@ -42,8 +51,8 @@
           </div> -->
         </q-card>
       </div>
-    </div>
-    <div class="row justify-center">
+    </q-card>
+    <div class="row justify-center q-mt-md">
       <div
         id="virtual-scroll-target"
         style="max-height: 70vh"
@@ -173,6 +182,7 @@ export default defineComponent({
 <style lang="sass" scoped>
 .index-page
   max-height: 100vh
+  background: #e7eef7
 .notice-card
   &--low
     border-right: 5px solid green
@@ -180,4 +190,8 @@ export default defineComponent({
     border-right: 5px solid yellow
   &--high
     border-right: 5px solid red
+.notice
+  &-all
+    padding: 10px
+    height: 60%
 </style>

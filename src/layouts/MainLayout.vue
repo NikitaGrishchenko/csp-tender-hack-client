@@ -60,6 +60,8 @@ export default defineComponent({
 </script>
 
 <style lang="sass">
+.main-container
+  background: #e7eef7
 .c-accent
   color: $accent
 .secondary

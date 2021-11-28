@@ -2,7 +2,7 @@
   <q-page class="index-page q-pa-md">
     <!-- {{ userNotice }} -->
     <p class="main-title">Уведомления пользователя</p>
-    <q-card v-if="groupsEvents" class="row bg-red-10">
+    <q-card v-if="groupsEvents" class="row bg-blue-grey-1">
       <div class="col-2 q-pa-md flex items-center justify-center">
         <q-btn class="notice-all bg-white" @click="getUserNotice"
           >Все уведомления</q-btn
